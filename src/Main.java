@@ -1,4 +1,4 @@
-import java.text.ParseException;
+import java.text.DateFormat;
 import java.util.*;
 
 public class Main {
@@ -6,26 +6,24 @@ public class Main {
 
     public static void main(String[] args) {
         rnd = new Random(42);
-//        Time time = new Time();
-//        StorageItem s = new StorageItem("David");
 
-//
-//        Folder fo1 = new Folder("B");
-//        File fi1 = new File("bye", "log");
-//        fo1.addItem(fi1);
-//        Folder fo2 = new Folder("A");
-//        fo2.addItem(fo1);
-//        File fi2 = new File("Aa", "txt");
-//        fi2.addContent("Hello\nWorld!");
-//        fo2.addItem(fi2);
-//        File fi3 = new File("aa", "py");
-//        fi3.addContent("print(\"Hello World\")");
-//        fo2.addItem(fi3);
-//        Folder fo3 = new Folder("C");
-//        File fi4 = new File("code", "java");
-//        fi4.addContent("class A {\n    public A() {\n        System.out.println(\"Hey there\");\n    }\n}");
-//        fo3.addItem(fi4);
-//        fo1.addItem(fo3);
+
+        Folder fo1 = new Folder("B");
+        File fi1 = new File("bye", "log");
+        fo1.addItem(fi1);
+        Folder fo2 = new Folder("A");
+        fo2.addItem(fo1);
+        File fi2 = new File("Aa", "txt");
+        fi2.addContent("Hello\nWorld!");
+        fo2.addItem(fi2);
+        File fi3 = new File("aa", "py");
+        fi3.addContent("print(\"Hello World\")");
+        fo2.addItem(fi3);
+        Folder fo3 = new Folder("C");
+        File fi4 = new File("code", "java");
+        fi4.addContent("class A {\n    public A() {\n        System.out.println(\"Hey there\");\n    }\n}");
+        fo3.addItem(fi4);
+        fo1.addItem(fo3);
 //
 //        System.out.println("Sorting by size:");
 //        fo2.printTree(SortingField.SIZE);
@@ -38,19 +36,19 @@ public class Main {
 //        System.out.println("Sorting by date:");
 //        fo2.printTree(SortingField.DATE);
 //        System.out.println("\n");
-//
-//        String[] paths = {"aa.py", "B/code.java", "B/C/code.java", "AA.txt"};
-//
-//        for (String path : paths) {
-//            File f = fo2.findFile(path);
-//            if (f == null) {
-//                System.out.println("File does not exist: " + path);
-//            } else {
-//                System.out.println("File has been found: " + path);
-//                f.printContent();
-//            }
-//            System.out.println("\n");
-//        }
+
+        String[] paths = {"aa.py", "B/code.java", "B/C/code.java", "AA.txt"};
+
+        for (String path : paths) {
+            File f = fo2.findFile(path);
+            if (f == null) {
+                System.out.println("File does not exist: " + path);
+            } else {
+                System.out.println("File has been found: " + path);
+                f.printContent();
+            }
+            System.out.println("\n");
+        }
 //
 //        Folder f = new Folder("Testing");
 //        Folder temp1 = f;
