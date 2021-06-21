@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class File extends StorageItem {
     String type;
     String content;
@@ -31,6 +33,7 @@ public class File extends StorageItem {
     }
     @Override
     public void printTree(SortingField field) {
+        System.out.println(this.getName());
         return;
     }
 }

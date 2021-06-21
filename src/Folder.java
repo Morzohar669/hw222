@@ -1,6 +1,7 @@
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Folder extends StorageItem {
     ArrayList<StorageItem> arrayOfItems;
@@ -17,7 +18,7 @@ public class Folder extends StorageItem {
         }
         int sum = 0;
         for (int i = 0; i < arrayOfItems.size(); i++) {
-            sum += arrayOfItems.get(1).size;
+            sum += (arrayOfItems.get(i)).getSize();
         }
         return sum;
     }
@@ -78,28 +79,34 @@ public class Folder extends StorageItem {
 
     @Override
     public void printTree(SortingField field) {
-        printTree(field, arrayOfItems);
+        printTree(field,this, 1);
     }
 
-    public void printTree(SortingField field, ArrayList<StorageItem> arrayToPrint){
-        if (arrayOfItems.size() == 0){
+    public void printTree(SortingField field, Folder currFolder, int counter) {
+        if (currFolder.arrayOfItems.size() == 0) {
             return;
         }
-
-        System.out.println(getName());
+        System.out.println(currFolder.getName());
 
         // here we need to sort my correct field
-        ArrayList<StorageItem> sortedArray = sortByField(field, arrayToPrint);
+        ArrayList<StorageItem> sortedArray = sortByField(field, currFolder.arrayOfItems);
 
-        System.out.println("|    ");
+        while (sortedArray.size() != 0) {
 
-        if (sortedArray.get(0) instanceof File)
-            System.out.println(((File) sortedArray.get(0)).getName());
-            sortedArray = storageBuilder(sortedArray);
-            printTree(field, sortedArray);
+            for (int j = 0 ; j < counter ; j++) {
+                System.out.print("|    ");
+            }
 
-        sortedArray = storageBuilder(sortedArray);
-        printTree(field, sortedArray);
+            if (sortedArray.get(0) instanceof File){
+                System.out.println(((File) sortedArray.get(0)).getName());
+                sortedArray = storageBuilder(sortedArray);
+
+            }else {
+                printTree(field, ((Folder) sortedArray.get(0)), ++counter);
+                sortedArray = storageBuilder(sortedArray);
+                counter--;
+            }
+        }
     }
 
     public ArrayList<StorageItem> storageBuilder(ArrayList<StorageItem> arrWithAll){
@@ -114,12 +121,53 @@ public class Folder extends StorageItem {
     }
 
     public ArrayList<StorageItem> sortByField(SortingField field, ArrayList<StorageItem> arrayList){
-        if (field == SortingField.NAME){
 
-            /* Sort statement*/
-            Collections.sort(arrayList);
+        class SortByName implements Comparator<StorageItem> {
 
+            public int compare(StorageItem a, StorageItem b) {
+                return a.getName().compareTo(b.getName());
+            }
         }
-    }
 
+        class SortBySize implements Comparator<StorageItem> {
+
+            public int compare(StorageItem a, StorageItem b) {
+                if(a.getSize() > b.getSize()){
+                    return 1;
+                }
+                if (a.getSize() == b.getSize()){
+                    return 0;
+                }
+                return -1;
+            }
+        }
+
+        class SortByDate implements Comparator<StorageItem> {
+
+            public int compare(StorageItem a, StorageItem b) {
+                if(a.getDate().getTime() > b.getDate().getTime()){
+                    return 1;
+                }
+                if (a.getDate().getTime() == b.getDate().getTime()){
+                    return 0;
+                }
+                return -1;
+            }
+        }
+
+        /** Using Comparator.compering we decide what switch case to use */
+
+        switch (field){
+            case NAME:
+                Collections.sort(arrayList, new SortByName());
+                break;
+            case DATE:
+                Collections.sort(arrayList, new SortByDate().thenComparing(new SortByName()));
+                break;
+            case SIZE:
+                Collections.sort(arrayList, new SortBySize().thenComparing(new SortByName()));
+                break;
+        }
+        return arrayList;
+    }
 }

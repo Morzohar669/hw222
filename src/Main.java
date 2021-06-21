@@ -24,18 +24,18 @@ public class Main {
         fi4.addContent("class A {\n    public A() {\n        System.out.println(\"Hey there\");\n    }\n}");
         fo3.addItem(fi4);
         fo1.addItem(fo3);
-//
-//        System.out.println("Sorting by size:");
-//        fo2.printTree(SortingField.SIZE);
-//        System.out.println("\n");
-//
-//        System.out.println("Sorting by name:");
-//        fo2.printTree(SortingField.NAME);
-//        System.out.println("\n");
-//
-//        System.out.println("Sorting by date:");
-//        fo2.printTree(SortingField.DATE);
-//        System.out.println("\n");
+
+        System.out.println("Sorting by size:");
+        fo2.printTree(SortingField.SIZE);
+        System.out.println("\n");
+
+        System.out.println("Sorting by name:");
+        fo2.printTree(SortingField.NAME);
+        System.out.println("\n");
+
+        System.out.println("Sorting by date:");
+        fo2.printTree(SortingField.DATE);
+        System.out.println("\n");
 
         String[] paths = {"aa.py", "B/code.java", "B/C/code.java", "AA.txt"};
 
@@ -49,17 +49,17 @@ public class Main {
             }
             System.out.println("\n");
         }
-//
-//        Folder f = new Folder("Testing");
-//        Folder temp1 = f;
-//        for (int i = 1; i <= 10; i++) {
-//            Folder temp2 = new Folder("temp" + i);
-//            temp1.addItem(temp2);
-//            temp1 = temp2;
-//        }
-//        temp1.addItem(new File("test2", "cs"));
-//        temp1.addItem(new File("test1", "cs"));
-//
-//        f.printTree(SortingField.NAME);
+
+        Folder f = new Folder("Testing");
+        Folder temp1 = f;
+        for (int i = 1; i <= 10; i++) {
+            Folder temp2 = new Folder("temp" + i);
+            temp1.addItem(temp2);
+            temp1 = temp2;
+        }
+        temp1.addItem(new File("test2", "cs"));
+        temp1.addItem(new File("test1", "cs"));
+
+        f.printTree(SortingField.NAME);
     }
 }
