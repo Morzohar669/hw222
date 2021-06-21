@@ -1,4 +1,6 @@
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Folder extends StorageItem {
     ArrayList<StorageItem> arrayOfItems;
@@ -34,6 +36,8 @@ public class Folder extends StorageItem {
     public File findFile(String path) {
         return checkFile(arrayOfItems, path);
     }
+
+    /** send me into recursive helping function with the list nd the path */
 
     public File checkFile(ArrayList<StorageItem> arrayOfItems, String pathString) {
         if (pathString.length() == 0) {
@@ -71,4 +75,51 @@ public class Folder extends StorageItem {
         /** if we got here so the file is not exist in this folder*/
         return null;
     }
+
+    @Override
+    public void printTree(SortingField field) {
+        printTree(field, arrayOfItems);
+    }
+
+    public void printTree(SortingField field, ArrayList<StorageItem> arrayToPrint){
+        if (arrayOfItems.size() == 0){
+            return;
+        }
+
+        System.out.println(getName());
+
+        // here we need to sort my correct field
+        ArrayList<StorageItem> sortedArray = sortByField(field, arrayToPrint);
+
+        System.out.println("|    ");
+
+        if (sortedArray.get(0) instanceof File)
+            System.out.println(((File) sortedArray.get(0)).getName());
+            sortedArray = storageBuilder(sortedArray);
+            printTree(field, sortedArray);
+
+        sortedArray = storageBuilder(sortedArray);
+        printTree(field, sortedArray);
+    }
+
+    public ArrayList<StorageItem> storageBuilder(ArrayList<StorageItem> arrWithAll){
+        ArrayList<StorageItem> arrWithout0 = new ArrayList<>();
+        if (arrWithAll.size() == 0){
+            return null;
+        }
+        for (int i = 1 ; i < arrWithAll.size() ; i++){
+            arrWithout0.add(arrWithAll.get(i));
+        }
+        return arrWithout0;
+    }
+
+    public ArrayList<StorageItem> sortByField(SortingField field, ArrayList<StorageItem> arrayList){
+        if (field == SortingField.NAME){
+
+            /* Sort statement*/
+            Collections.sort(arrayList);
+
+        }
+    }
+
 }

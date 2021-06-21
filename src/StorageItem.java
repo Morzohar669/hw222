@@ -1,9 +1,12 @@
+import java.sql.Timestamp;
+import java.util.Collections;
+
 /** This class will represent a abstract item
  * could be either File or Folder(who contains array of files)
  * */
 public abstract class StorageItem {
     final String name;
-    final String date;
+    final Timestamp date;
     final int size;
 
     public StorageItem(String name){
@@ -15,17 +18,15 @@ public abstract class StorageItem {
     /** Different between File and Folder types */
     public abstract int getSize();
 
-    public void printTree(SortingField field){ ; ///GET BACK TO THAT LATER!!!!!
-
-        }
     public String getName(){
 
         return this.name;
     }
 
-    public String getDate(){
+    public Timestamp getDate(){
 
         return this.date;
     }
 
+    public abstract void printTree(SortingField field);
 }

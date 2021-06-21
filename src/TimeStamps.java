@@ -1,25 +1,33 @@
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class TimeStamps {
-    /**
-     * TimeStamps we took for Epoch converter website
-     * UPPERBOUND - epoch timestamp for 31/12/2021 23:59:59
-     * LOWERBOUND - epoch timestamp for 1/1/2017 00:00:00
-     */
-    public static String raffleAndConvertToDate() {
 
-        long UPPERBOUND = 1640995199;
-        long LOWERBOUND = 1483228800;
-        long gap = UPPERBOUND % LOWERBOUND;        // check later!!!!!
-        long rand1 = Math.abs(((Main.rnd.nextLong() % (gap)))) + LOWERBOUND;  // check later!!!!!
+    public static Timestamp raffleAndConvertToDate() {
 
-//        System.out.println(UPPERBOUND); //test
-//        System.out.println(LOWERBOUND); //test
-//        System.out.println(gap); //test
-//        System.out.println(rand1); //test
+        /** Here we want to get the timestamps in unix mode for the two bound dates */
+        String s = "2017-01-01 00:00:00";
+        String e = "2021-12-31 23:59:59";
+        final Timestamp LOWERBOUND = Timestamp.valueOf(s);
+        final Timestamp UPPERBOUND = Timestamp.valueOf(e);
 
-        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss.ms").format(new java.util.Date(rand1 * 1000));
+        /** Using the rnd (in main) we ruffle a random long num */
+        long rand1 = Math.abs(((Main.rnd.nextLong())));
+
+        /** taking the two human dates and make them into epoch mode as long numbers */
+        long lowBoundEpoch = Math.abs((LOWERBOUND.getTime()));
+        long upBoundEpoch = Math.abs((UPPERBOUND.getTime()));
+
+        /** gap will be a long type number who is the differance between the bounds */
+        long gap = upBoundEpoch - lowBoundEpoch;
+
+        /** Because you asked for it tht way*/
+        long ts = (rand1 % gap) + lowBoundEpoch;
+
+        /** return the date in human format using Timestamp constructor*/
+        Timestamp date = new Timestamp(ts);
         return date;
+
     }
 }
 

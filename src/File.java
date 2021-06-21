@@ -29,4 +29,8 @@ public class File extends StorageItem {
         System.out.println(getName() + " Size: " + getSize() + "MB Created: " + getDate());
         System.out.println(content);
     }
+    @Override
+    public void printTree(SortingField field) {
+        return;
+    }
 }
