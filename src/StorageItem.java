@@ -1,7 +1,3 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.function.Function;
-
 /** This class will represent a abstract item
  * could be either File or Folder(who contains array of files)
  * */
@@ -14,21 +10,21 @@ public abstract class StorageItem {
         this.size = getSize();
         this.name = name;
         this.date = TimeStamps.raffleAndConvertToDate();
-        System.out.println(this.date);
-
     }
 
     /** Different between File and Folder types */
     public abstract int getSize();
 
-    public void printTree(SortingField field){ ; ///GETBACK TO THAT LATER!!!!!
+    public void printTree(SortingField field){ ; ///GET BACK TO THAT LATER!!!!!
 
         }
     public String getName(){
+
         return this.name;
     }
 
     public String getDate(){
+
         return this.date;
     }
 
